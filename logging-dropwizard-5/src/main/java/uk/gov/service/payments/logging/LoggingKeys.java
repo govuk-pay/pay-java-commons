@@ -210,6 +210,11 @@ public interface LoggingKeys {
     String CONNECT_ACCOUNT_ID = "stripe_connect_account_id";
 
     /**
+     * The ID of the payment provider account, e.g. Adyen BalanceAccountId or Stripe ConnectAccountId.
+     */
+    String PSP_ACCOUNT_ID = "psp_account_id";
+
+    /**
      * The id of the Stripe event notification
      */
     String STRIPE_EVENT_ID = "stripe_event_id";
