@@ -415,5 +415,40 @@ class CardExpiryDateTest {
         var cardExpiryDate2 = CardExpiryDate.valueOf("10/22");
         assertThat(cardExpiryDate1.hashCode(), is(cardExpiryDate2.hashCode()));
     }
+    
+    @Test
+    void cardExpiryDatesAreConvertedToTheCorrectFormatForWalletPaymentWithOneDigitMonth() {
+        var expiryDate = "1/2025";
+        var cardExpiryDate = CardExpiryDate.fromOneOrTwoDigitMonthSlashFourDigitYear(expiryDate);
+        
+        assertThat(cardExpiryDate.isPresent(), is(true));
+        assertThat(cardExpiryDate.get().toString(), is("01/25"));
+    }
+    
+    @Test
+    void cardExpiryDatesAreConvertedToTheCorrectFormatForWalletPaymentWithTwoDigitMonth() {
+        var expiryDate = "12/2026";
+        var cardExpiryDate = CardExpiryDate.fromOneOrTwoDigitMonthSlashFourDigitYear(expiryDate);
+
+        assertThat(cardExpiryDate.isPresent(), is(true));
+        assertThat(cardExpiryDate.get().toString(), is("12/26"));
+    }
+
+    @Test
+    void cardExpiryDatesAreConvertedToTheCorrectFormatForWalletPaymentWithLeadingZero() {
+        var expiryDate = "01/2025";
+        var cardExpiryDate = CardExpiryDate.fromOneOrTwoDigitMonthSlashFourDigitYear(expiryDate);
+
+        assertThat(cardExpiryDate.isPresent(), is(true));
+        assertThat(cardExpiryDate.get().toString(), is("01/25"));
+    }
+    
+    @Test
+    void cardExpiryDateDoesntAllowThroughInvalidDates() {
+        var expiryDate = "99/2025";
+        var cardExpiryDate = CardExpiryDate.fromOneOrTwoDigitMonthSlashFourDigitYear(expiryDate);
+        
+        assertThat(cardExpiryDate.isPresent(), is(false));
+    }
 
 }
