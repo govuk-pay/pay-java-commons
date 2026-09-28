@@ -6,6 +6,8 @@ updates:
     schedule:
       interval: weekly
       time: "03:00"
+    exclude-paths:
+      - "platform-bom/**"
     ignore:
       - dependency-name: "net.logstash.logback:logstash-logback-encoder"
         # logstash 8+ needs refactoring on our end
