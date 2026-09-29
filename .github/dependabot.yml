@@ -18,6 +18,16 @@ updates:
       - dependencies
       - govuk-pay
       - java
+  - package-ecosystem: maven
+    directory: "/platform-bom"
+    schedule:
+      interval: weekly
+      time: "03:00"
+    open-pull-requests-limit: 0
+    labels:
+      - dependencies
+      - govuk-pay
+      - java
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
