@@ -1,15 +1,15 @@
 ---
 version: 2
 updates:
-  - package-ecosystem: maven
-    directory: "/"
-    schedule:
-      interval: weekly
-      time: "03:00"
-    exclude-paths:
-      - "platform-bom/**"
-    ignore:
-      - dependency-name: "net.logstash.logback:logstash-logback-encoder"
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "03:00"
+  exclude-paths:
+    - "platform-bom/**"
+  ignore:
+  - dependency-name: "net.logstash.logback:logstash-logback-encoder"
         # logstash 8+ needs refactoring on our end
         versions:
           - ">= 8"
@@ -38,3 +38,12 @@ updates:
       - dependencies
       - govuk-pay
       - github_actions
+- package-ecosystem: github-actions
+  directory: /.github/workflows
+  schedule:
+    interval: daily
+    time: 03:00
+  open-pull-requests-limit: 3
+  cooldown: 3
+  allow:
+  - dependency-name: govuk-pay/pay-ci/*
