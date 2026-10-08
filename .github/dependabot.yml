@@ -10,9 +10,9 @@ updates:
     - "platform-bom/**"
   ignore:
   - dependency-name: "net.logstash.logback:logstash-logback-encoder"
-        # logstash 8+ needs refactoring on our end
-        versions:
-          - ">= 8"
+    # logstash 8+ needs refactoring on our end
+    versions:
+      - ">= 8"
     open-pull-requests-limit: 10
     labels:
       - dependencies
@@ -42,7 +42,7 @@ updates:
   directory: /.github/workflows
   schedule:
     interval: daily
-    time: 03:00
+    time: "03:00"
   open-pull-requests-limit: 3
   cooldown: 3
   allow:
