@@ -11,13 +11,13 @@ updates:
   ignore:
   - dependency-name: "net.logstash.logback:logstash-logback-encoder"
     # logstash 8+ needs refactoring on our end
-  versions:
-    - ">= 8"
-  open-pull-requests-limit: 10
-  labels:
-    - dependencies
-    - govuk-pay
-    - java
+    versions:
+      - ">= 8"
+    open-pull-requests-limit: 10
+    labels:
+      - dependencies
+      - govuk-pay
+      - java
 - package-ecosystem: maven
   directory: "/platform-bom"
   schedule:
