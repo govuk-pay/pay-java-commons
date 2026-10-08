@@ -11,33 +11,33 @@ updates:
   ignore:
   - dependency-name: "net.logstash.logback:logstash-logback-encoder"
     # logstash 8+ needs refactoring on our end
-    versions:
-      - ">= 8"
-    open-pull-requests-limit: 10
-    labels:
-      - dependencies
-      - govuk-pay
-      - java
-  - package-ecosystem: maven
-    directory: "/platform-bom"
-    schedule:
-      interval: weekly
-      time: "03:00"
-    open-pull-requests-limit: 0
-    labels:
-      - dependencies
-      - govuk-pay
-      - java
-  - package-ecosystem: github-actions
-    directory: "/"
-    schedule:
-      interval: daily
-      time: "03:00"
-    open-pull-requests-limit: 0
-    labels:
-      - dependencies
-      - govuk-pay
-      - github_actions
+  versions:
+    - ">= 8"
+  open-pull-requests-limit: 10
+  labels:
+    - dependencies
+    - govuk-pay
+    - java
+- package-ecosystem: maven
+  directory: "/platform-bom"
+  schedule:
+    interval: weekly
+    time: "03:00"
+  open-pull-requests-limit: 0
+  labels:
+    - dependencies
+    - govuk-pay
+    - java
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "03:00"
+  open-pull-requests-limit: 0
+  labels:
+    - dependencies
+    - govuk-pay
+    - github_actions
 - package-ecosystem: github-actions
   directory: /.github/workflows
   schedule:
