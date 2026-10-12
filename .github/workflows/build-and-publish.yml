@@ -36,6 +36,8 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }} # must be raw secret value, not env
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
           cache: maven
+      - name: Show Maven version
+        run: mvn -v
       - name: Set package version
         id: set-package-version
         run: |
@@ -44,6 +46,15 @@ jobs:
           mvn -B --no-transfer-progress versions:set -DnewVersion="$PACKAGE_VERSION"
       - name: Release Maven package
         run: mvn -B --no-transfer-progress deploy -P gpg-sign
+      - name: Inspect Central bundle
+        if: always()
+        run: |
+          echo "--- staged files outside version dirs that are being rejected ---"
+          find target/central-staging -type f | grep -v '/1\.0\.[0-9]\{14\}/' || true
+          echo "--- local repo metadata naming, for comparison ---"
+          ls -la ~/.m2/repository/uk/gov/service/payments/pay-java-commons/ || true
+          echo "--- bundle listing ---"
+          unzip -l target/central-publishing/central-bundle.zip || true
       - name: Create GitHub release
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
