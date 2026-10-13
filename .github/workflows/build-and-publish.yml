@@ -44,7 +44,7 @@ jobs:
           echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
           mvn -B --no-transfer-progress versions:set -DnewVersion="$PACKAGE_VERSION"
       - name: Release Maven package
-        run: mvn -B --no-transfer-progress deploy -P gpg-sign -Daether.priority.VersionsMetadataGeneratorFactory=NaN -Daether.priority.EnhancedLocalRepositoryManagerFactory=NaN Daether.syncContext.named.factory=rwlock-local
+        run: mvn -B --no-transfer-progress deploy -P gpg-sign -Daether.priority.VersionsMetadataGeneratorFactory=NaN -Daether.priority.EnhancedLocalRepositoryManagerFactory=NaN -Daether.syncContext.named.factory=rwlock-local
       - name: Create GitHub release
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
