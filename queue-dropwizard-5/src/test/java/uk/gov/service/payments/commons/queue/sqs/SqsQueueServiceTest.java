@@ -78,7 +78,7 @@ public class SqsQueueServiceTest {
         verify(mockAppender, times(1)).doAppend(loggingEventArgumentCaptor.capture());
         List<LoggingEvent> logEvents = loggingEventArgumentCaptor.getAllValues();
 
-        assertThat(logEvents.stream().anyMatch(e -> e.getFormattedMessage().contains("Message sent to SQS queue - SendMessageResponse(MessageId=test-message-id)")), is(true));
+        assertEquals("Message sent to SQS queue - MessageId=test-message-id",logEvents.stream().findFirst().get().getFormattedMessage());
     }
 
     @Test
@@ -101,7 +101,7 @@ public class SqsQueueServiceTest {
         verify(mockAppender, times(1)).doAppend(loggingEventArgumentCaptor.capture());
         List<LoggingEvent> logEvents = loggingEventArgumentCaptor.getAllValues();
 
-        assertThat(logEvents.stream().anyMatch(e -> e.getFormattedMessage().contains("Message sent to SQS queue - SendMessageResponse(MessageId=test-message-id)")), is(true));
+        assertEquals("Message sent to SQS queue - MessageId=test-message-id",logEvents.stream().findFirst().get().getFormattedMessage());
     }
 
     @Test(expected = QueueException.class)
