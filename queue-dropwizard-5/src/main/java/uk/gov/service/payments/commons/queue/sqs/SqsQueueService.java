@@ -60,7 +60,7 @@ public class SqsQueueService {
         try {
             SendMessageResponse sendMessageResult = sqsClient.sendMessage(sendMessageRequest);
 
-            logger.info("Message sent to SQS queue - {}", sendMessageResult);
+            logger.info("Message sent to SQS queue - MessageId={}", sendMessageResult.messageId());
             return QueueMessage.of(sendMessageResult, sendMessageRequest.messageBody());
         } catch (SqsException | UnsupportedOperationException e) {
             logger.error("Failed sending message to SQS queue - {}", e.getMessage());
