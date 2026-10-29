@@ -2,7 +2,7 @@ package uk.gov.service.payments.commons.testing.pact.consumers;
 
 import au.com.dius.pact.consumer.junit.PactVerification;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.client.fluent.Request;
+import org.apache.hc.client5.http.fluent.Request;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public class PayPactProviderRuleTest {
     @PactVerification({"stock-quote-service"})
     @Pacts(pacts = {"consumer-stock-quote-service-axp"})
     public void getAmexPrice() throws Exception {
-        HashMap map = jsonToMap(Request.Get(stockQuoteService.getUrl() + "/stocks/AXP").execute().returnContent().asString());
+        HashMap map = jsonToMap(Request.get(stockQuoteService.getUrl() + "/stocks/AXP").execute().returnContent().asString());
         assertThat(map.get("name")).isEqualTo("American Express");
         assertThat(map.get("price")).isEqualTo("200.00");
         assertThat(map.get("currency")).isEqualTo("USD");
@@ -33,7 +33,7 @@ public class PayPactProviderRuleTest {
     @PactVerification({"stock-quote-service"})
     @Pacts(pacts = {"consumer-stock-quote-service-v"})
     public void getVisaPrice() throws Exception {
-        HashMap map = jsonToMap(Request.Get(stockQuoteService.getUrl() + "/stocks/V").execute().returnContent().asString());
+        HashMap map = jsonToMap(Request.get(stockQuoteService.getUrl() + "/stocks/V").execute().returnContent().asString());
         assertThat(map.get("name")).isEqualTo("Visa");
         assertThat(map.get("price")).isEqualTo("100.00");
         assertThat(map.get("currency")).isEqualTo("USD");
@@ -43,7 +43,7 @@ public class PayPactProviderRuleTest {
     @PactVerification({"weather-service"})
     @Pacts(pacts = {"consumer-weather-service"})
     public void getLondonWeather() throws Exception {
-        HashMap map = jsonToMap(Request.Get(weatherService.getUrl() + "/weather/London").execute().returnContent().asString());
+        HashMap map = jsonToMap(Request.get(weatherService.getUrl() + "/weather/London").execute().returnContent().asString());
         assertThat(map.get("name")).isEqualTo("London");
         assertThat(map.get("temperature")).isEqualTo("25");
         assertThat(map.get("unit")).isEqualTo("degrees");
@@ -53,12 +53,12 @@ public class PayPactProviderRuleTest {
     @PactVerification({"weather-service", "stock-quote-service"})
     @Pacts(pacts = {"consumer-weather-service", "consumer-stock-quote-service-axp"})
     public void callTwoProviders() throws Exception {
-        HashMap map = jsonToMap(Request.Get(stockQuoteService.getUrl() + "/stocks/AXP").execute().returnContent().asString());
+        HashMap map = jsonToMap(Request.get(stockQuoteService.getUrl() + "/stocks/AXP").execute().returnContent().asString());
         assertThat(map.get("name")).isEqualTo("American Express");
         assertThat(map.get("price")).isEqualTo("200.00");
         assertThat(map.get("currency")).isEqualTo("USD");
 
-        map = jsonToMap(Request.Get(weatherService.getUrl() + "/weather/London").execute().returnContent().asString());
+        map = jsonToMap(Request.get(weatherService.getUrl() + "/weather/London").execute().returnContent().asString());
         assertThat(map.get("name")).isEqualTo("London");
         assertThat(map.get("temperature")).isEqualTo("25");
         assertThat(map.get("unit")).isEqualTo("degrees");

@@ -1,6 +1,7 @@
 package uk.gov.service.payments.commons.testing.pact.consumers;
 
 import au.com.dius.pact.consumer.junit.PactProviderRule;
+import au.com.dius.pact.core.model.BasePact;
 import au.com.dius.pact.core.model.DefaultPactReader;
 import au.com.dius.pact.core.model.FileSource;
 import au.com.dius.pact.core.model.RequestResponsePact;
@@ -46,15 +47,15 @@ public class PayPactProviderRule extends PactProviderRule {
     }
     
     @Override
-    protected Map<String, RequestResponsePact> getPacts(String fragment) {
-        HashMap<String, RequestResponsePact> pacts = new HashMap<>();
+    protected Map<String, BasePact> getPacts(String fragment) {
+        HashMap<String, BasePact> pacts = new HashMap<>();
         for (Method m : target.getClass().getMethods()) {
             if (m.getName().equals(methodName)) {
                 Optional.ofNullable(m.getAnnotationsByType(Pacts.class)).ifPresent(pactsAnnotation ->
                         stream(pactsAnnotation).forEach(p -> stream(p.pacts()).forEach(
                                 fileName -> {
                                     if (fileName.contains(provider)) {
-                                        RequestResponsePact pact = (RequestResponsePact) DefaultPactReader.INSTANCE.loadPact(new FileSource<>(new File(getResource(format("pacts/%s.json", fileName)).getFile())));
+                                        BasePact pact = (RequestResponsePact) DefaultPactReader.INSTANCE.loadPact(new FileSource(new File(getResource(format("pacts/%s.json", fileName)).getFile())));
                                         pacts.put(provider, pact);
                                     }
                                     if (!p.publish()) pactsToDelete.add(format("%s.json", fileName));
