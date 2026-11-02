@@ -27,7 +27,7 @@
     </dependencyManagement>
 
     <properties>
-        <pact.version>4.7.5</pact.version>
+        <pact.version>4.7.6</pact.version>
     </properties>
 
     <dependencies>
